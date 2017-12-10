@@ -1,10 +1,10 @@
 group 'z.sunday'
 version '1.0-SNAPSHOT'
 
+apply plugin: 'java'
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
-apply plugin: 'java'
 
 repositories {
     mavenCentral()
@@ -15,5 +15,5 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.3'
+    gradleVersion = '4.3.1'
 }
