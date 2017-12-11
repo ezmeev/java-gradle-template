@@ -17,3 +17,39 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.3.1'
 }
+
+def directory = '..'
+
+task createProject(type: Copy) {
+    org.apache.tools.ant.DirectoryScanner.removeDefaultExclude('**/.gitignore')
+    exclude('.gradle', 'build.gradle', 'settings.gradle', 'settings.template.gradle', 'build.template.gradle')
+    from('.')
+    into("$directory/$projectName")
+
+    finalizedBy 'copyBuild', 'copySettings'
+
+    doLast {
+        println "Creating project $projectName ..."
+    }
+}
+
+task copyBuild(type: Copy) {
+    from('build.template.gradle')
+    into("$directory/$projectName")
+    eachFile { it.setName('build.gradle') }
+
+    doLast {
+        println "Copy build ..."
+    }
+}
+
+task copySettings(type: Copy) {
+    from('settings.template.gradle')
+    into("$directory/$projectName")
+    eachFile { it.setName('settings.gradle') }
+    expand([newShinyJavaProjectName: projectName])
+
+    doLast {
+        println "Copy settings and setup project name ..."
+    }
+}
