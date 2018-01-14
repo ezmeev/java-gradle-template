@@ -47,7 +47,9 @@ task copySettings(type: Copy) {
     from('settings.template.gradle')
     into("$directory/$projectName")
     eachFile { it.setName('settings.gradle') }
-    expand([newShinyJavaProjectName: projectName])
+
+    def projectNameForSettings = projectName.indexOf('/') == -1 ? projectName : projectName.split('/').last()
+    expand([newShinyJavaProjectName: projectNameForSettings])
 
     doLast {
         println "Copy settings and setup project name ..."
