@@ -22,7 +22,7 @@ def directory = '..'
 
 task createProject(type: Copy) {
     org.apache.tools.ant.DirectoryScanner.removeDefaultExclude('**/.gitignore')
-    exclude('.gradle', 'build.gradle', 'settings.gradle', 'settings.template.gradle', 'build.template.gradle')
+    exclude('.gradle', 'build.gradle', 'settings.gradle', 'settings.template.gradle', 'build.template.gradle', '.idea', 'create.sh')
     from('.')
     into("$directory/$projectName")
 
